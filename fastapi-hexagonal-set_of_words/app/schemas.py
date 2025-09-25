@@ -18,7 +18,7 @@ class SetOfWordRead(SetOfWordBase):
     id: uuid.UUID
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class BulkSpanishRequest(BaseModel):
     words: List[str]
