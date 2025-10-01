@@ -1,0 +1,1 @@
+export class Word { constructor(public readonly text: string, public readonly language: string) {} }

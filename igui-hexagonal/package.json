@@ -1,0 +1,22 @@
+{
+  "name": "hexagonal-project-final",
+  "version": "0.3.0",
+  "private": true,
+  "workspaces": [
+    "src/adapters/input/ui/react-app",
+    "src/adapters/input/ui/angular-app"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "jest",
+    "start:react": "cd src/adapters/input/ui/react-app && npm start",
+    "start:angular": "cd src/adapters/input/ui/angular-app && npm start",
+    "cli": "node dist/src/adapters/input/cli/TranslateCliAdapter.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0",
+    "@types/jest": "^29.0.0"
+  }
+}

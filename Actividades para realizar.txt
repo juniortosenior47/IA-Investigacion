@@ -1,0 +1,22 @@
+--------------------------------
+-- traductor español a ingles --
+--------------------------------
+
+ -- front react
+ -- se debe corregir el codigo hecho por bolt, se debe quitar el tema de autenticacion solo dejar la logica de negocio de taduccion
+ -- se debe implementar api para consultar de postgres la data.
+ -- se debe integrar api con front end (consumir servicio del api que consulta la bd).
+ -- mejorar la experiencia de usuario
+
+
+ -- backend
+ -- por ahora con phyton y fastapi(tambien hacer api en java24)
+ -- validar si es necesario hacer una capa adicional de negocio en una api diferente o se hace esto en typescript en el front
+
+ --despliegue local en docker
+
+ --hacer pruebas unitarias y de humo
+
+-- Implementacion de auth y seguridad
+ -- Implementar en front al consumir los servicios y https
+ -- Implementar en back al traer datos de la bd, debe siempre tener un token valido para hacer consulta y cors

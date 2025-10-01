@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  react-app:
+    build: .
+    ports:
+      - "3000:3000"
+    command: http-server ./react -p 3000
+  angular-app:
+    build: .
+    ports:
+      - "4200:4200"
+    command: http-server ./angular -p 4200

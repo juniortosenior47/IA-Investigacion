@@ -1,0 +1,2 @@
+import { ITranslator } from "../ports/ITranslator";
+export class TranslateWord { constructor(private translator: ITranslator) {} async execute(word: string, from: string, to: string): Promise<string> { return this.translator.translate(word, from, to); } }
