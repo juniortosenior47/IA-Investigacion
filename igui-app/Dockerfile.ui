@@ -1,8 +1,0 @@
-FROM node:20
-WORKDIR /app
-# copy only package files for UI install
-COPY src/adapters/input/ui/react-app/package.json ./
-RUN npm install
-COPY src/adapters/input/ui/react-app ./
-EXPOSE 5173
-CMD ["npm","run","dev"] 

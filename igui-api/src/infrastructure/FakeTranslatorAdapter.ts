@@ -1,2 +1,0 @@
-import { ITranslator } from "../core/ports/ITranslator";
-export class FakeTranslatorAdapter implements ITranslator { async translate(text: string, from: string, to: string): Promise<string> { return `[${from}->${to}] ${text.toUpperCase()}`; } }
