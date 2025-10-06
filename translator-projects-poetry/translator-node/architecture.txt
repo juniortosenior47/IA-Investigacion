@@ -1,0 +1,22 @@
+┌────────────────────────┐
+│        Client          │
+│  (Postman / curl / UI) │
+└────────────┬───────────┘
+             │ HTTP
+             ▼
+     ┌────────────────┐
+     │   API Service   │
+     │ (Express (Node.js) / Node)│
+     ├────────────────┤
+     │ Endpoints:      │
+     │ - /add_words    │
+     │ - /translate    │
+     │ - /translate_many│
+     └────────┬────────┘
+              │
+              ▼
+       ┌─────────────┐
+       │    Redis     │
+       │ (Cache KV)   │
+       │ Key: translator:word:<term> │
+       └─────────────┘

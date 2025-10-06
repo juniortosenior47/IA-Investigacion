@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "22c0296c-018e-4aa3-b5fa-c3bb92dab190",
+		"name": "traductor-redis-phyton",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48150304",
+		"_collection_link": "https://juniortosenior47-7962878.postman.co/workspace/julio-anibal-moscoso-herrera's-~93f33283-e718-4f7f-89b6-e3b8128640f1/collection/48150304-22c0296c-018e-4aa3-b5fa-c3bb92dab190?action=share&source=collection_link&creator=48150304"
+	},
+	"item": [
+		{
+			"name": "translate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/translate?word=gato",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"translate"
+					],
+					"query": [
+						{
+							"key": "word",
+							"value": "gato"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_words",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"word\": \"gato\",\r\n        \"translation\": \"cat\"\r\n    },\r\n    {\r\n        \"word\": \"árbol\",\r\n        \"translation\": \"tree\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/add_words",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"add_words"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "translate_many",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    \"perro\",\r\n    \"gato\",\r\n    \"árbol\"\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/translate_many",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"translate_many"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

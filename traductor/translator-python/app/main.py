@@ -1,50 +1,32 @@
-from fastapi import FastAPI, Query, Body
-from .redis_client import redis_client
+import aioredis
+from fastapi import FastAPI, Body
 from typing import List, Dict
 
-app = FastAPI(title="Traductor Español ↔ Inglés con Redis")
+app = FastAPI(title="Traductor Async")
 
-@app.get("/translate")
-def translate(word: str = Query(...)):
-    word = word.lower().strip()
-    translation = redis_client.get(word)
-    return {"input": word, "translation": translation or "No encontrado"}
+PREFIX = "translator:word:"
+redis = None
 
-@app.post("/translate_many")
-def translate_many(words: List[str] = Body(...)):
-    normalized = [w.lower().strip() for w in words]
-    translations = redis_client.mget(normalized)
-
-    results = {}
-    for i, word in enumerate(normalized):
-        results[word] = translations[i] if translations[i] else "No encontrado"
-
-    return {"translations": results}
-
-@app.post("/translate_many_no_eficient")
-def translate_manyno_eficient(words: List[str] = Body(...)):
-    results = {}
-    for word in words:
-        normalized = word.lower().strip()
-        translation = redis_client.get(normalized)
-        results[normalized] = translation or "No encontrado"
-    return {"translations": results}
-
-@app.post("/add_word")
-def add_word(
-    word: str = Body(..., embed=True),
-    translation: str = Body(..., embed=True)
-):
-    word = word.lower().strip()
-    redis_client.set(word, translation)
-    return {"message": f"Palabra '{word}' agregada con traducción '{translation}'"}
+@app.on_event("startup")
+async def startup():
+    global redis
+    redis = await aioredis.from_url("redis://redis:6379", decode_responses=True)
 
 @app.post("/add_words")
-def add_words(words: List[Dict[str, str]] = Body(...)):
-    added = []
-    for entry in words:
-        word = entry["word"].lower().strip()
-        translation = entry["translation"]
-        redis_client.set(word, translation)
-        added.append({word: translation})
-    return {"message": "Palabras agregadas", "data": added}
+async def add_words(words: List[Dict[str, str]] = Body(...)):
+    async with redis.pipeline(transaction=False) as pipe:
+        for entry in words:
+            key = f"{PREFIX}{entry['word'].lower().strip()}"
+            pipe.set(key, entry["translation"])
+        await pipe.execute()
+    return {"message": "Palabras agregadas"}
+
+@app.post("/translate_many")
+async def translate_many(words: List[str] = Body(...)):
+    keys = [f"{PREFIX}{w.lower().strip()}" for w in words]
+    translations = await redis.mget(*keys)
+    return {
+        "translations": {
+            w: translations[i] or "No encontrado" for i, w in enumerate(words)
+        }
+    }
