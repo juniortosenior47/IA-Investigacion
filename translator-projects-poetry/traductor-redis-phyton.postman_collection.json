@@ -13,7 +13,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/translate?word=gato",
+					"raw": "http://localhost:8000/translate?word=gato&prefix=translator:word:",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -26,6 +26,10 @@
 						{
 							"key": "word",
 							"value": "gato"
+						},
+						{
+							"key": "prefix",
+							"value": "translator:word:"
 						}
 					]
 				}
@@ -47,7 +51,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/add_words",
+					"raw": "http://localhost:8000/add_words?prefix=translator:word:",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -55,6 +59,12 @@
 					"port": "8000",
 					"path": [
 						"add_words"
+					],
+					"query": [
+						{
+							"key": "prefix",
+							"value": "translator:word:"
+						}
 					]
 				}
 			},
@@ -75,7 +85,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/translate_many",
+					"raw": "http://localhost:8000/translate_many?prefix=translator:word:",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -83,6 +93,12 @@
 					"port": "8000",
 					"path": [
 						"translate_many"
+					],
+					"query": [
+						{
+							"key": "prefix",
+							"value": "translator:word:"
+						}
 					]
 				}
 			},
