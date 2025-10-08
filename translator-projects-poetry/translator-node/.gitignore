@@ -53,3 +53,12 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+
+__pycache__/
+.pytest_cache/
+.venv/
+.env
+.mypy_cache/
+.DS_Store
+poetry.lock

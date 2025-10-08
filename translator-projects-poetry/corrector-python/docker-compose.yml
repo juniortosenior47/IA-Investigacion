@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  text_corrector:
+    build: .
+    container_name: corrector-python
+    env_file: .env
+    ports:
+      - "${PORT:-8000}:8000"
+    restart: unless-stopped

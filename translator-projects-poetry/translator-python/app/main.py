@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from typing import List, Dict, Optional
 import os
 import redis.asyncio as aioredis
-
+from app.services.ordenar import sort_and_translate
 REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
 REDIS_PORT = int(os.getenv("REDIS_PORT", "6379"))
 REDIS_PREFIX = os.getenv("REDIS_PREFIX", "translator:word:")
@@ -46,5 +46,6 @@ async def translate_many(words: List[str] = Body(...), prefix: Optional[str] = Q
         raise HTTPException(status_code=400, detail="Lista vacía")
     keys = [_key(w.lower(), prefix) for w in words]
     results = await app.state.redis.mget(*keys)
-    translations = {w: r or "No encontrado" for w, r in zip(words, results)}
-    return {"translations": translations}
+    dicc_ordenado, frase_final = sort_and_translate(results, words)
+    ##translations = {w: r or "No encontrado" for w, r in zip(words, results)}
+    return {"diccionary": dicc_ordenado, "phrase": frase_final}

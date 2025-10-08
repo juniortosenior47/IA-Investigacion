@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "corrector-python"
+version = "1.0.0"
+description = "API REST para eliminar palabras sobrantes en frases en inglés (como artículos innecesarios)."
+authors = ["Anonymous <anonymous@example.com>"]
+readme = "README.md"
+license = "MIT"
+packages = [{ include = "app" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115.0"
+uvicorn = { extras = ["standard"], version = "^0.30.0" }
+spacy = "^3.7.0"
+pydantic-settings = "^2.4.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.3.0"
+flake8 = "^7.0.0"
+isort = "^5.13.2"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
