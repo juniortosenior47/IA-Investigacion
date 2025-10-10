@@ -12,8 +12,8 @@ def sort_and_translate(lista_traducciones: dict, orden: list) -> tuple[dict, str
     """
 
     # ✅ 1. Extraer el diccionario de traducciones (por si viene dentro de otra clave)
-    traducciones = lista_traducciones.get("translations", lista_traducciones)
-
+    ##traducciones = lista_traducciones.get("translations", lista_traducciones)
+    traducciones = {k: v for k, v in zip(orden, lista_traducciones)}
     # ✅ 2. Ordenar el diccionario según la lista de orden
     diccionario_ordenado = {
         palabra: traducciones[palabra]

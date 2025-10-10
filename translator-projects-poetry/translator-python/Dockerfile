@@ -5,6 +5,8 @@ RUN pip install --no-cache-dir "poetry>=1.8.0"
 RUN poetry config virtualenvs.create false
 COPY pyproject.toml poetry.lock* ./
 RUN poetry install --no-root --no-interaction --no-ansi
+# Descargar modelo de spaCy
+RUN poetry run python -m spacy download en_core_web_sm
 COPY ./app ./app
 COPY .env .env
 EXPOSE 8000
