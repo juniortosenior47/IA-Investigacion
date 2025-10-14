@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Query, Body, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict, Optional
 from app.domain.ports.translation_service_port import TranslationServicePort
 
@@ -9,6 +10,20 @@ def get_translation_service(translation_service: TranslationServicePort = Depend
 
 def create_fastapi_app(translation_service: TranslationServicePort) -> FastAPI:
     app = FastAPI(title="Word Translator API")
+
+    # CORS Configuration
+    origins = [
+        "http://localhost:5173",
+        "http://localhost:80"
+    ]
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
     @app.get("/translate")
     async def translate(word: str = Query(...), prefix: Optional[str] = Query(None)):

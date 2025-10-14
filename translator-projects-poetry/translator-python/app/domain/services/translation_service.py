@@ -2,7 +2,7 @@ from typing import List, Dict, Tuple, Optional
 from app.domain.ports.cache_port import CachePort
 from app.domain.ports.translation_service_port import TranslationServicePort
 from app.domain.services.ordenar import sort_and_translate
-from app.domain.services.text_cleaner import clean_sentence
+from app.domain.services.correct_sentence import correct_sentence
 
 class TranslationService(TranslationServicePort):
     def __init__(self, cache_port: CachePort):
@@ -29,4 +29,5 @@ class TranslationService(TranslationServicePort):
         
         results = await self.cache_port.mget(words, prefix)
         dicc_ordenado, frase_final = sort_and_translate(results, words)
-        return dicc_ordenado, clean_sentence(frase_final)
+        ##return dicc_ordenado, correct_sentence(clean_sentence(frase_final))
+        return dicc_ordenado, correct_sentence(frase_final)

@@ -23,7 +23,9 @@ def sort_and_translate(lista_traducciones: dict, orden: list) -> tuple[dict, str
 
     # ✅ 3. Crear la lista ordenada de las traducciones
     traduccion_ordenada = [
-        traducciones[palabra] for palabra in orden if palabra in traducciones
+        traducciones[palabra] if traducciones[palabra] is not None else "No encontrado"
+        for palabra in orden
+        if palabra in traducciones
     ]
 
     # ✅ 4. Construir la frase traducida
