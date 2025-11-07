@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - IDCS_BASE_URL
+      - REDIS_HOST=redis
+    secrets:
+      - api_key_management
+    depends_on:
+      - redis
+    command: ["sh","-c","node -r ts-node/register/transpile-only src/main.ts"]
+  redis:
+    image: redis:7
+    ports:
+      - '6379:6379'
+secrets:
+  api_key_management:
+    file: .api_key_management.secret
